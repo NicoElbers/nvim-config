@@ -1,4 +1,6 @@
-vim.keymap.set("n", "<leader>b", vim.cmd.Ex)
+vim.keymap.set("n", "<leader>b", function ()
+    vim.cmd("Ex")
+end)
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
@@ -21,7 +23,6 @@ vim.keymap.set("v", "<leader>d", "\"d")
 vim.keymap.set("i", "<C-c>", "<Esc>")
 
 vim.keymap.set("n", "Q", "<nop>")
-vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 vim.keymap.set("n", "<leader>f", function()
     vim.lsp.buf.format()
 end)
