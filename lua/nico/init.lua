@@ -1,4 +1,5 @@
-require("nvim-treesitter.install").prefer_git = true
+require("nvim-treesitter.install")
 require("nico.packer")
 require("nico.set")
 require("nico.remap")
+require("nico.autocmds")
