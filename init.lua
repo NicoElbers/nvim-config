@@ -477,9 +477,10 @@ local on_attach = function(client, bufnr)
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, '[W]orkspace [L]ist Folders')
 
-  if client.name == "jdtls" then
+  if client.name == "jdt.ls" then
     require("jdtls").setup_dap { hotcodereplace = "auto" }
     require("jdtls.dap").setup_dap_main_class_configs()
+    vim.lsp.codelens.refresh()
   end
 
   -- Create a command `:Format` local to the LSP buffer
@@ -488,6 +489,14 @@ local on_attach = function(client, bufnr)
   end, { desc = 'Format current buffer with LSP' })
 end
 
+
+
+
+-- Enable the following language servers
+--  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
+--
+--  Add any additional override configuration in the following tables. They will be passed to
+--  the `settings` field of the server config. You must look up that documentation yourself.
 
 local HOME = os.getenv "HOME"
 
@@ -513,11 +522,6 @@ vim.list_extend(jdtlsBundles, vim.split(vim.fn.glob(DEBUGGER_LOCATION .. "/java-
 --   lua_ls = {},
 -- }
 
--- Enable the following language servers
---  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
---
---  Add any additional override configuration in the following tables. They will be passed to
---  the `settings` field of the server config. You must look up that documentation yourself.
 local serverSettings = {
   -- clangd = {},
   -- gopls = {},
@@ -525,9 +529,9 @@ local serverSettings = {
   -- rust_analyzer = {},
   -- tsserver = {},
   jdtls = {
-    -- init_options = {
-    --   bundles = jdtlsBundles
-    -- }
+    init_options = {
+      bundles = jdtlsBundles
+    }
   },
 
   lua_ls = {
