@@ -285,10 +285,35 @@ vim.keymap.set('n', '<C-l>', function() ui.nav_file(4) end)
 -- vim.keymap.set('n', '<C-k>', '<C-w>k')
 -- vim.keymap.set('n', '<C-l>', '<C-w>l')
 
--- open terminal
-vim.keymap.set('n', '<F10>', '<cmd>wa<Bar>below split<Bar>terminal<cr>a')
-vim.keymap.set('t', '<F10>', '<C-\\><C-n><cmd>q<cr>')
-vim.keymap.set('t', '<F5>', '<C-\\><C-n><cmd>q<cr>')
+-- terminal
+local ENTER = vim.api.nvim_replace_termcodes("<CR>", true, true, true)
+local openTerminal = function()
+  vim.cmd('below split')
+  vim.cmd('terminal')
+  vim.api.nvim_feedkeys('a', 't', false)
+end
+
+local closeTerminal = function()
+  local closeCmd = vim.api.nvim_replace_termcodes("<C-\\><C-n>", true, true, true)
+  vim.api.nvim_feedkeys(closeCmd, 't', false)
+  vim.cmd('q')
+end
+
+local clearTerminal = function()
+  vim.api.nvim_feedkeys('clear' .. ENTER, 't', false)
+end
+
+vim.keymap.set('n', '<F10>', function()
+  vim.cmd('wa')
+  openTerminal()
+end)
+vim.keymap.set('t', '<F10>', function()
+  closeTerminal()
+end)
+
+-- Old way to open terminal
+-- vim.keymap.set('n', '<F10>', '<cmd>below split<bar>terminal<cr>a')
+-- vim.keymap.set('t', '<F10>', '<C-\\><C-n><cmd>q<cr>')
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
@@ -307,8 +332,17 @@ local RunFile = api.nvim_create_augroup("RunFile", { clear = true })
 api.nvim_create_autocmd(
   { "FileType" },
   {
-    command =
-    ":nnoremap <buffer> <F5> <Cmd>wa <Bar>let $FILE_PATH=expand('%:p') <Bar>below split <Bar>terminal<cr>A python3 $FILE_PATH<CR>",
+    -- command =
+    -- ":nnoremap <buffer> <F5> <Cmd>wa <Bar>let $FILE_PATH=expand('%:p') <Bar>below split <Bar>terminal<cr>A python3 $FILE_PATH<CR>",
+    callback = function()
+      vim.keymap.set('n', '<F5>', function()
+        vim.cmd('wa')
+        local FILE_PATH = vim.fn.expand('%:p')
+        openTerminal()
+        clearTerminal()
+        vim.api.nvim_feedkeys('python3 ' .. FILE_PATH .. ENTER, 't', false)
+      end, { buffer = 0, desc = "Runs a python3 file" })
+    end,
     pattern = { 'python' },
     group = RunFile,
   }
@@ -317,8 +351,17 @@ api.nvim_create_autocmd(
 api.nvim_create_autocmd(
   { "FileType" },
   {
-    command =
-    ":nnoremap <buffer> <F5> <Cmd>wa <Bar>below split <Bar>let $FILE_PATH=expand('%:p') <Bar>terminal<cr>A lua $FILE_PATH<CR>",
+    -- command =
+    -- ":nnoremap <buffer> <F5> <Cmd>wa <Bar>below split <Bar>let $FILE_PATH=expand('%:p') <Bar>terminal<cr>A lua $FILE_PATH<CR>",
+    callback = function()
+      vim.keymap.set('n', '<F5>', function()
+        vim.cmd('wa')
+        local FILE_PATH = vim.fn.expand('%:p')
+        openTerminal()
+        clearTerminal()
+        vim.api.nvim_feedkeys('lua ' .. FILE_PATH .. ENTER, 't', false)
+      end, { buffer = 0, desc = "Runs a lua file" })
+    end,
     pattern = { 'lua' },
     group = RunFile,
   }
@@ -327,8 +370,33 @@ api.nvim_create_autocmd(
 api.nvim_create_autocmd(
   { "FileType" },
   {
-    command =
-    ":nnoremap <buffer> <F5> <Cmd>wa<Bar>below split<Bar>terminal<cr>agradle run<cr>",
+    -- command =
+    -- ":nnoremap <buffer> <F5> <Cmd>wa<Bar>below split<Bar>terminal<cr>agradle run<cr>",
+    callback = function()
+      vim.keymap.set('n', '<F5>', function()
+        vim.cmd('wa')
+        openTerminal()
+        clearTerminal()
+        vim.api.nvim_feedkeys('gradle run', 't', false)
+      end, { buffer = 0, desc = "Runs a java gradle project" })
+    end,
+    pattern = { 'java' },
+    group = RunFile,
+  }
+)
+api.nvim_create_autocmd(
+  { "FileType" },
+  {
+    -- command =
+    -- ":nnoremap <buffer> <F5> <Cmd>wa<Bar>below split<Bar>terminal<cr>agradle test<cr>",
+    callback = function()
+      vim.keymap.set('n', '<F9>', function()
+        vim.cmd('wa')
+        openTerminal()
+        clearTerminal()
+        vim.api.nvim_feedkeys('gradle test', 't', false)
+      end, { buffer = 0, desc = "Tests a java gradle project" })
+    end,
     pattern = { 'java' },
     group = RunFile,
   }
@@ -488,6 +556,12 @@ local on_attach = function(client, bufnr)
     vim.lsp.buf.format()
   end, { desc = 'Format current buffer with LSP' })
 end
+
+vim.api.nvim_create_user_command('E', function()
+  vim.cmd('wa')
+  vim.cmd('qa')
+end, {})
+
 
 
 
