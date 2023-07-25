@@ -377,7 +377,7 @@ api.nvim_create_autocmd(
         vim.cmd('wa')
         openTerminal()
         clearTerminal()
-        vim.api.nvim_feedkeys('gradle run', 't', false)
+        vim.api.nvim_feedkeys('gradle run' .. ENTER, 't', false)
       end, { buffer = 0, desc = "Runs a java gradle project" })
     end,
     pattern = { 'java' },
@@ -394,7 +394,7 @@ api.nvim_create_autocmd(
         vim.cmd('wa')
         openTerminal()
         clearTerminal()
-        vim.api.nvim_feedkeys('gradle test', 't', false)
+        vim.api.nvim_feedkeys('gradle test' .. ENTER, 't', false)
       end, { buffer = 0, desc = "Tests a java gradle project" })
     end,
     pattern = { 'java' },
