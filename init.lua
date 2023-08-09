@@ -1,1 +1,1 @@
-require("nico.set")
+require("nico/set")
