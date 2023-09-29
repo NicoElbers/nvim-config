@@ -597,10 +597,9 @@ vim.list_extend(jdtlsBundles, vim.split(vim.fn.glob(DEBUGGER_LOCATION .. "/java-
 -- }
 
 local serverSettings = {
-  -- clangd = {},
-  -- gopls = {},
+  gopls = {},
   pyright = {},
-  -- rust_analyzer = {},
+  rust_analyzer = {},
   -- tsserver = {},
   jdtls = {
     init_options = {
