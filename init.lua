@@ -93,17 +93,17 @@ require('lazy').setup({
     },
   },
 
-  {
-    'maxmx03/dracula.nvim',
-    lazy = false,
-    priority = 9999,
-    config = function()
-      local dracula = require 'dracula'
-      dracula.setup()
-
-      vim.cmd.colorscheme 'dracula'
-    end,
-  },
+  -- {
+  --   'maxmx03/dracula.nvim',
+  --   lazy = false,
+  --   priority = 9999,
+  --   config = function()
+  --     local dracula = require 'dracula'
+  --     dracula.setup()
+  --
+  --     vim.cmd.colorscheme 'dracula'
+  --   end,
+  -- },
   -- {
   --   -- Theme inspired by Atom
   --   'folke/tokyonight.nvim',
@@ -112,7 +112,16 @@ require('lazy').setup({
   --     vim.cmd.colorscheme 'tokyonight-storm'
   --   end,
   -- },
-
+  {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    lazy = false,
+    opts = {
+      flavour = "mocha",
+      transparent_background = false,
+      term_colors = true,
+    },
+  },
   {
     -- Set lualine as statusline
     'nvim-lualine/lualine.nvim',
@@ -128,15 +137,9 @@ require('lazy').setup({
   },
 
   {
-    -- Add indentation guides even on blank lines
     'lukas-reineke/indent-blankline.nvim',
-    -- Enable `lukas-reineke/indent-blankline.nvim`
-    -- See `:help indent_blankline.txt`
-    opts = {
-      show_end_of_line = true,
-      char = '┊',
-      show_trailing_blankline_indent = false,
-    },
+    main = "ibl",
+    opts = {},
   },
 
   -- "gc" to comment visual regions/lines
@@ -165,8 +168,70 @@ require('lazy').setup({
       'nvim-treesitter/nvim-treesitter-textobjects',
     },
     build = ':TSUpdate',
-  },
+    opts = {
+      -- Add languages to be installed here that you want installed for treesitter
+      ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim', 'java' },
 
+      -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
+      auto_install = true,
+
+      highlight = { enable = true },
+      indent = { enable = true },
+      incremental_selection = {
+        enable = true,
+        keymaps = {
+          init_selection = '<c-space>',
+          node_incremental = '<c-space>',
+          scope_incremental = '<c-s>',
+          node_decremental = '<M-space>',
+        },
+      },
+      textobjects = {
+        select = {
+          enable = true,
+          lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
+          keymaps = {
+            -- You can use the capture groups defined in textobjects.scm
+            ['aa'] = '@parameter.outer',
+            ['ia'] = '@parameter.inner',
+            ['af'] = '@function.outer',
+            ['if'] = '@function.inner',
+            ['ac'] = '@class.outer',
+            ['ic'] = '@class.inner',
+          },
+        },
+        move = {
+          enable = true,
+          set_jumps = true, -- whether to set jumps in the jumplist
+          goto_next_start = {
+            [']m'] = '@function.outer',
+            [']]'] = '@class.outer',
+          },
+          goto_next_end = {
+            [']M'] = '@function.outer',
+            [']['] = '@class.outer',
+          },
+          goto_previous_start = {
+            ['[m'] = '@function.outer',
+            ['[['] = '@class.outer',
+          },
+          goto_previous_end = {
+            ['[M'] = '@function.outer',
+            ['[]'] = '@class.outer',
+          },
+        },
+        swap = {
+          enable = true,
+          swap_previous = {
+            -- ['<leader>A'] = '@parameter.inner',
+          },
+          swap_next = {
+            -- ['<leader>a'] = '@parameter.inner',
+          },
+        },
+      },
+    },
+  },
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
@@ -180,6 +245,8 @@ require('lazy').setup({
   --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
   { import = 'custom.plugins' },
 }, {})
+
+vim.cmd.colorscheme "catppuccin"
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
@@ -268,16 +335,16 @@ vim.keymap.set("i", "<C-c>", "<Esc>")
 vim.keymap.set("n", "Q", "<nop>")
 
 -- harpoon keymaps
-local mark = require('harpoon.mark')
-local ui = require('harpoon.ui')
+-- local mark = require('harpoon.mark')
+-- local ui = require('harpoon.ui')
 
-vim.keymap.set('n', '<leader>a', mark.add_file)
-vim.keymap.set('n', '<C-m>', ui.toggle_quick_menu)
-
-vim.keymap.set('n', '<C-h>', function() ui.nav_file(1) end)
-vim.keymap.set('n', '<C-j>', function() ui.nav_file(2) end)
-vim.keymap.set('n', '<C-k>', function() ui.nav_file(3) end)
-vim.keymap.set('n', '<C-l>', function() ui.nav_file(4) end)
+-- vim.keymap.set('n', '<leader>a', mark.add_file)
+-- vim.keymap.set('n', '<C-m>', ui.toggle_quick_menu)
+--
+-- vim.keymap.set('n', '<C-h>', function() ui.nav_file(1) end)
+-- vim.keymap.set('n', '<C-j>', function() ui.nav_file(2) end)
+-- vim.keymap.set('n', '<C-k>', function() ui.nav_file(3) end)
+-- vim.keymap.set('n', '<C-l>', function() ui.nav_file(4) end)
 
 -- window movement keymaps
 -- vim.keymap.set('n', '<C-h>', '<C-w>h')
@@ -433,72 +500,6 @@ vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc
 vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch [W]ord' })
 vim.keymap.set('n', '<leader>ps', require('telescope.builtin').live_grep, { desc = '[P]roject [S]earch' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
-
--- [[ Configure Treesitter ]]
--- See `:help nvim-treesitter`
-require('nvim-treesitter.configs').setup {
-  -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim', 'java' },
-
-  -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
-  auto_install = true,
-
-  highlight = { enable = true },
-  indent = { enable = true },
-  incremental_selection = {
-    enable = true,
-    keymaps = {
-      init_selection = '<c-space>',
-      node_incremental = '<c-space>',
-      scope_incremental = '<c-s>',
-      node_decremental = '<M-space>',
-    },
-  },
-  textobjects = {
-    select = {
-      enable = true,
-      lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
-      keymaps = {
-        -- You can use the capture groups defined in textobjects.scm
-        ['aa'] = '@parameter.outer',
-        ['ia'] = '@parameter.inner',
-        ['af'] = '@function.outer',
-        ['if'] = '@function.inner',
-        ['ac'] = '@class.outer',
-        ['ic'] = '@class.inner',
-      },
-    },
-    move = {
-      enable = true,
-      set_jumps = true, -- whether to set jumps in the jumplist
-      goto_next_start = {
-        [']m'] = '@function.outer',
-        [']]'] = '@class.outer',
-      },
-      goto_next_end = {
-        [']M'] = '@function.outer',
-        [']['] = '@class.outer',
-      },
-      goto_previous_start = {
-        ['[m'] = '@function.outer',
-        ['[['] = '@class.outer',
-      },
-      goto_previous_end = {
-        ['[M'] = '@function.outer',
-        ['[]'] = '@class.outer',
-      },
-    },
-    swap = {
-      enable = true,
-      swap_previous = {
-        -- ['<leader>A'] = '@parameter.inner',
-      },
-      swap_next = {
-        -- ['<leader>a'] = '@parameter.inner',
-      },
-    },
-  },
-}
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
