@@ -118,7 +118,7 @@ require('lazy').setup({
     lazy = false,
     opts = {
       flavour = "mocha",
-      transparent_background = false,
+      transparent_background = true,
       term_colors = true,
     },
   },
