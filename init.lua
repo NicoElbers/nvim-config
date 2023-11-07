@@ -607,7 +607,7 @@ local serverSettings = {
       bundles = jdtlsBundles
     }
   },
-
+  marksman = {},
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
