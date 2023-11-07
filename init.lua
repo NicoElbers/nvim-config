@@ -40,6 +40,7 @@ require('lazy').setup({
   {
     -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
+    event = "VeryLazy",
     dependencies = {
       -- Automatically install LSPs to stdpath for neovim
       { 'williamboman/mason.nvim', config = true },
@@ -57,6 +58,7 @@ require('lazy').setup({
   {
     -- Autocompletion
     'hrsh7th/nvim-cmp',
+    event = "InsertEnter",
     dependencies = {
       -- Snippet Engine & its associated nvim-cmp source
       'L3MON4D3/LuaSnip',
@@ -71,10 +73,11 @@ require('lazy').setup({
   },
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim',          opts = {} },
+  { 'folke/which-key.nvim',   opts = {} },
   {
     -- Adds git releated signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
+    event = "VeryLazy",
     opts = {
       -- See `:help gitsigns.txt`
       signs = {
@@ -93,25 +96,28 @@ require('lazy').setup({
     },
   },
 
-  -- {
-  --   'maxmx03/dracula.nvim',
-  --   lazy = false,
-  --   priority = 9999,
-  --   config = function()
-  --     local dracula = require 'dracula'
-  --     dracula.setup()
-  --
-  --     vim.cmd.colorscheme 'dracula'
-  --   end,
-  -- },
-  -- {
-  --   -- Theme inspired by Atom
-  --   'folke/tokyonight.nvim',
-  --   priority = 1000,
-  --   config = function()
-  --     vim.cmd.colorscheme 'tokyonight-storm'
-  --   end,
-  -- },
+  {
+    'maxmx03/dracula.nvim',
+    lazy = false,
+    priority = 9999,
+    enabled = false,
+    config = function()
+      local dracula = require 'dracula'
+      dracula.setup()
+
+      vim.cmd.colorscheme 'dracula'
+    end,
+  },
+  {
+    -- Theme inspired by Atom
+    'folke/tokyonight.nvim',
+    enabled = false,
+    priority = 1000,
+
+    config = function()
+      vim.cmd.colorscheme 'tokyonight-storm'
+    end,
+  },
   {
     "catppuccin/nvim",
     name = "catppuccin",
@@ -126,6 +132,7 @@ require('lazy').setup({
     -- Set lualine as statusline
     'nvim-lualine/lualine.nvim',
     -- See `:help lualine.txt`
+    event = "InsertEnter",
     opts = {
       options = {
         icons_enabled = true,
@@ -138,15 +145,25 @@ require('lazy').setup({
 
   {
     'lukas-reineke/indent-blankline.nvim',
+    event = "VeryLazy",
     main = "ibl",
     opts = {},
   },
 
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim',         opts = {} },
+  {
+    'numToStr/Comment.nvim',
+    event = "VeryLazy",
+    opts = {}
+  },
 
   -- Fuzzy Finder (files, lsp, etc)
-  { 'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' } },
+  {
+    'nvim-telescope/telescope.nvim',
+    event = "VeryLazy",
+    branch = '0.1.x',
+    dependencies = { 'nvim-lua/plenary.nvim' }
+  },
 
   -- Fuzzy Finder Algorithm which requires local dependencies to be built.
   -- Only load if `make` is available. Make sure you have the system
