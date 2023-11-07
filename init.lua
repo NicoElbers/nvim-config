@@ -584,23 +584,30 @@ local jdtlsBundles = {
 }
 vim.list_extend(jdtlsBundles, vim.split(vim.fn.glob(DEBUGGER_LOCATION .. "/java-test/extension/server/*.jar"), "\n"))
 
--- local serverBundles = {
---   -- clangd = {},
---   -- gopls = {},
---   pyright = {},
---   -- rust_analyzer = {},
---   -- tsserver = {},
---   jdtls = {
---     bundles = jdtlsBundles
---   },
---
---   lua_ls = {},
--- }
-
 local serverSettings = {
   gopls = {},
   pyright = {},
-  rust_analyzer = {},
+  rust_analyzer = {
+    cargo = {
+      allFeatures = true,
+      loadOutDirsFromCheck = true,
+      runBuildScripts = true,
+    },
+    -- Add clippy lints for Rust.
+    checkOnSave = {
+      allFeatures = true,
+      command = "clippy",
+      extraArgs = { "--no-deps" },
+    },
+    procMacro = {
+      enable = true,
+      ignored = {
+        ["async-trait"] = { "async_trait" },
+        ["napi-derive"] = { "napi" },
+        ["async-recursion"] = { "async_recursion" },
+      },
+    },
+  },
   -- tsserver = {},
   jdtls = {
     init_options = {
