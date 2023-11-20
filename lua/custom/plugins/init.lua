@@ -3,30 +3,6 @@
 --
 -- See the kickstart.nvim README for more information
 return {
-  -- {
-  --     'theprimeagen/harpoon',
-  --     opts = {}
-  -- },
-  -- -- {
-  -- 	'stevearc/oil.nvim',
-  -- 	opts = {
-  -- 		columns = {
-  -- 			"icon",
-  -- 			"size",
-  -- 		},
-  -- 		default_file_explorer = true,
-  -- 		restore_win_options = true,
-  -- 		delete_to_trash = false,
-  -- 		trash_command = "",
-  -- 		promp_save_on_select_new_entry = true,
-  -- 		use_default_keymaps = true,
-  -- 		view_options = {
-  -- 			show_hidden = true,
-  -- 		},
-  -- 	},
-  -- 	-- Optional dependencies
-  -- 	dependencies = { "nvim-tree/nvim-web-devicons" },
-  -- },
   {
     'nvim-neo-tree/neo-tree.nvim',
     opts = {

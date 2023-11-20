@@ -1,6 +1,7 @@
 return {
   {
     "folke/which-key.nvim",
+    event = "VeryLazy",
     optional = true,
     opts = {
       defaults = {
@@ -12,6 +13,7 @@ return {
   -- Add BibTeX/LaTeX to treesitter
   {
     "nvim-treesitter/nvim-treesitter",
+    event = "VeryLazy",
     opts = function(_, opts)
       if type(opts.ensure_installed) == "table" then
         vim.list_extend(opts.ensure_installed, { "bibtex", "latex" })
@@ -44,6 +46,7 @@ return {
   -- Correctly setup lspconfig for LaTeX 🚀
   {
     "neovim/nvim-lspconfig",
+    event = "VeryLazy",
     optional = true,
     opts = {
       servers = {
