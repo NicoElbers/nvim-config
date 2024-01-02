@@ -11,5 +11,9 @@ vim.keymap.set("v", "K", ":m '>-2<cr>gv=gv", { silent = true })
 vim.keymap.set("n", "n", "nzz")
 vim.keymap.set("n", "N", "Nzz")
 
--- Better leaving insert mode
+-- Better leaving things
 vim.keymap.set("i", "<C-c>", "<Esc>")
+vim.api.nvim_create_user_command("E", function()
+	vim.cmd.wa()
+	vim.cmd.qa()
+end, {})

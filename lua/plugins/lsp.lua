@@ -1,73 +1,94 @@
 local servers = {
-	lua_ls = {},
-	gopls = {},
-	rust_analyzer = {
-		["rust_analyzer"] = {
-			procMacro = { enable = true },
-			cargo = { allFeatures = true },
-			checkOnSave = {
-				command = "clippy",
-				extraArgs = { "--no-deps" },
-			},
-		},
-	},
-	tsserver = {},
-	html = { filetypes = { "html" } },
-	clangd = {},
-	asm_lsp = {},
-	zls = {},
-	marksman = {},
-	pyright = {},
+    lua_ls = {},
+    gopls = {},
+    rust_analyzer = {
+        ["rust_analyzer"] = {
+            procMacro = { enable = true },
+            cargo = { allFeatures = true },
+            checkOnSave = {
+                command = "clippy",
+                extraArgs = { "--no-deps" },
+            },
+        },
+    },
+    tsserver = {},
+    html = { filetypes = { "html" } },
+    clangd = {},
+    asm_lsp = {},
+    zls = {},
+    marksman = {},
+    pyright = {},
 }
 
 local on_attach = function(_, bufnr)
-	local nmap = function(keys, func, desc)
-		if desc then
-			desc = "LSP: " .. desc
-		end
+    local nmap = function(keys, func, desc)
+        if desc then
+            desc = "LSP: " .. desc
+        end
 
-		vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
-	end
+        vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
+    end
 
-	nmap("K", vim.lsp.buf.hover, "Hover Docs")
-	nmap("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
-	nmap("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
-	nmap("gi", vim.lsp.buf.implementation, "[G]oto [I]mplementation")
-	nmap("<leader>td", vim.lsp.buf.type_definition, "[T]ype [D]efinition")
-	nmap("<leader>rn", vim.lsp.buf.rename, "[R]e[N]ame")
-	nmap("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+    nmap("K", vim.lsp.buf.hover, "Hover Docs")
+    nmap("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
+    nmap("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
+    nmap("gi", vim.lsp.buf.implementation, "[G]oto [I]mplementation")
+    nmap("<leader>td", vim.lsp.buf.type_definition, "[T]ype [D]efinition")
+    nmap("<leader>rn", vim.lsp.buf.rename, "[R]e[N]ame")
+    nmap("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+    nmap("<C-h>", vim.lsp.buf.signature_help, "Signature [H]elp")
 end
 
 return {
-	{
-		"williamboman/mason.nvim",
-		config = function()
-			require("mason").setup()
-		end,
-	},
-	{
-		"williamboman/mason-lspconfig.nvim",
-		config = function()
-			require("mason-lspconfig").setup({
-				ensure_installed = vim.tbl_keys(servers),
-			})
-		end,
-	},
-	{
-		"neovim/nvim-lspconfig",
-		config = function()
-			local capabilities = require("cmp_nvim_lsp").default_capabilities()
+    {
+        "williamboman/mason.nvim",
+        config = function()
+            require("mason").setup()
+        end,
+    },
+    {
+        "williamboman/mason-lspconfig.nvim",
+        config = function()
+            require("mason-lspconfig").setup({
+                ensure_installed = vim.tbl_keys(servers),
+            })
+        end,
+    },
+    {
+        "neovim/nvim-lspconfig",
+        dependencies = {
+            "folke/neodev.nvim",
+            "williamboman/mason-lspconfig.nvim",
+        },
+        config = function()
+            require("neodev").setup()
 
-			require("mason-lspconfig").setup_handlers({
-				function(server_name)
-					require("lspconfig")[server_name].setup({
-						capabilities = capabilities,
-						on_attach = on_attach,
-						settings = servers[server_name],
-						filetypes = (servers[server_name] or {}).filetypes,
-					})
-				end,
-			})
-		end,
-	},
+            local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+            require("mason-lspconfig").setup_handlers({
+                function(server_name)
+                    require("lspconfig")[server_name].setup({
+                        capabilities = capabilities,
+                        on_attach = on_attach,
+                        settings = servers[server_name],
+                        filetypes = (servers[server_name] or {}).filetypes,
+                    })
+                end,
+            })
+
+            vim.lsp.handlers["textDocument/signatureHelp"] =
+                vim.lsp.with(vim.lsp.handlers.signature_help, { focusable = false })
+
+            vim.diagnostic.config({
+                update_in_insert = true,
+                float = {
+                    focusable = false,
+                    style = "minimal",
+                    border = "rounded",
+                    header = "",
+                    prefix = "",
+                },
+            })
+        end,
+    },
 }
