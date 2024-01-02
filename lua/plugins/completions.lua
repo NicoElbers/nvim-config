@@ -1,23 +1,21 @@
 return {
     {
         "L3MON4D3/LuaSnip",
-        lazy = false,
+        event = "InsertEnter",
         dependencies = {
-            "saadparwaiz1/cmp_luasnip",
             "rafamadriz/friendly-snippets",
         },
         config = function()
             require("luasnip.loaders.from_vscode").lazy_load()
-        end
-    },
-    {
-        "hrsh7th/cmp-nvim-lsp",
-        lazy = false,
-        config = true,
+        end,
     },
     {
         "hrsh7th/nvim-cmp",
-        lazy = false,
+        event = "InsertEnter",
+        dependencies = {
+            "hrsh7th/cmp-nvim-lsp",
+            "saadparwaiz1/cmp_luasnip",
+        },
         config = function()
             local cmp = require("cmp")
 

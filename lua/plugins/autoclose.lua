@@ -1,5 +1,6 @@
 return {
     "m4xshen/autoclose.nvim",
+    event = "InsertEnter",
     opts = {
         keys = {
             ["("] = { escape = false, close = true, pair = "()" },

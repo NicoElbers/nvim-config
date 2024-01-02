@@ -1,7 +1,16 @@
 local servers = {
 	lua_ls = {},
 	gopls = {},
-	rust_analyzer = {},
+	rust_analyzer = {
+		["rust_analyzer"] = {
+			procMacro = { enable = true },
+			cargo = { allFeatures = true },
+			checkOnSave = {
+				command = "clippy",
+				extraArgs = { "--no-deps" },
+			},
+		},
+	},
 	tsserver = {},
 	html = { filetypes = { "html" } },
 	clangd = {},
@@ -32,14 +41,12 @@ end
 return {
 	{
 		"williamboman/mason.nvim",
-		lazy = false,
 		config = function()
 			require("mason").setup()
 		end,
 	},
 	{
 		"williamboman/mason-lspconfig.nvim",
-		lazy = false,
 		config = function()
 			require("mason-lspconfig").setup({
 				ensure_installed = vim.tbl_keys(servers),
@@ -48,7 +55,6 @@ return {
 	},
 	{
 		"neovim/nvim-lspconfig",
-		lazy = false,
 		config = function()
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
