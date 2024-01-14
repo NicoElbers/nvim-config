@@ -15,10 +15,8 @@ return {
 				bi.formatting.stylua,
 				bi.formatting.prettierd.with({
 					extra_args = function(params)
-						-- vim.pretty_print(params)
 						return {
-                            "--config-precedence",
-                            "file-override",
+							"--config-precedence",
 							"--tab-width",
 							"4",
 						}
