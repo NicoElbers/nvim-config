@@ -14,5 +14,9 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Load the things
 require("options")
-require("keybinds")
+require("keymaps")
 require("lazy").setup("plugins")
+
+-- TODO: refactoring and undotree
+
+-- TODO: harpoon maybe

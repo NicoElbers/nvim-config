@@ -1,6 +1,4 @@
-local utils = require("utils")
-
-local servers = {
+return {
 	lua_ls = {},
 	-- NOTE: rust analyzer is done through the rust tools plugin
 	-- rust_analyzer = {},
@@ -15,9 +13,6 @@ local servers = {
 	asm_lsp = {},
 	marksman = {},
 	pyright = {},
-}
-
-return {
 	{
 		"j-hui/fidget.nvim",
 		event = { "BufRead", "BufWrite", "BufNewFile" },
@@ -57,7 +52,6 @@ return {
 				{ "│", "FloatBorder" },
 			}
 			local orig_floating_preview = vim.lsp.util.open_floating_preview
-
 			---@diagnostic disable-next-line: duplicate-set-field
 			function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
 				opts = opts or {}
@@ -66,10 +60,8 @@ return {
 			end
 
 			require("neodev").setup()
-
 			local capabilities = vim.lsp.protocol.make_client_capabilities()
 			capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
-
 			require("mason-lspconfig").setup_handlers({
 				function(server_name)
 					require("lspconfig")[server_name].setup({
@@ -80,7 +72,6 @@ return {
 					})
 				end,
 			})
-
 			vim.diagnostic.config({
 				virtual_text = true,
 				signs = true,
@@ -116,7 +107,6 @@ return {
 				{ "│", "FloatBorder" },
 			}
 			local orig_floating_preview = vim.lsp.util.open_floating_preview
-
 			---@diagnostic disable-next-line: duplicate-set-field
 			function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
 				opts = opts or {}
@@ -125,11 +115,9 @@ return {
 			end
 
 			-- local mason_registry = require("mason-registry")
-
 			-- local codelldb_root = mason_registry.get_package("codelldb"):get_install_path() .. "/extension/"
 			-- local codelldb_path = codelldb_root .. "adapter/codelldb"
 			-- local liblldb_path = codelldb_root .. "lldb/lib/liblldb.so"
-
 			local rt = require("rust-tools")
 			rt.setup({
 				server = {
@@ -166,9 +154,7 @@ return {
 					},
 				},
 			})
-
 			rt.inlay_hints.enable()
-
 			vim.diagnostic.config({
 				virtual_text = true,
 				signs = true,
@@ -184,6 +170,41 @@ return {
 					prefix = "",
 				},
 			})
+		end,
+	},
+	-- {
+	--     "CRAG666/code_runner.nvim",
+	--     opts = {
+	--         better_term = {
+	--             clean = true,
+	--         },
+	--     },
+	--     config = function(_, opts)
+	--         local runner = require("code_runner")
+	--         runner.setup(opts)
+	--     end,
+	--     keys = {
+	--         { "<f5>", ":RunCode<cr>" },
+	--     },
+	-- },
+	{
+		"CRAG666/betterTerm.nvim",
+		dependencies = {
+			"CRAG666/code_runner.nvim",
+		},
+		opts = {},
+		config = function(_, opts)
+			local term = require("betterTerm")
+			term.setup(opts)
+
+			vim.keymap.set({ "n", "t" }, "<C-;>", term.open, { desc = "Open terminal" })
+			vim.keymap.set("n", "<leader>e", function()
+				require("betterTerm").send(
+					require("code_runner.commands").get_filetype_command(),
+					1,
+					{ clean = false, interrupt = true }
+				)
+			end, { desc = "Excute File" })
 		end,
 	},
 }
