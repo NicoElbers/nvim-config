@@ -1,9 +1,9 @@
 -- Leader key
-vim.g.mapleader = ' '
+vim.g.mapleader = " "
 
 -- Very useful options
 -- clipboard
-vim.opt.clipboard = 'unnamedplus'
+vim.opt.clipboard = "unnamedplus"
 
 -- Line numbers
 vim.opt.rnu = true
@@ -29,7 +29,7 @@ vim.opt.incsearch = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
--- Update time 
+-- Update time
 vim.opt.updatetime = 50
 vim.opt.timeout = true
 vim.opt.timeoutlen = 300

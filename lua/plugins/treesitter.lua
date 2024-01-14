@@ -5,6 +5,10 @@ return {
         local config = require("nvim-treesitter.configs")
         config.setup({
             auto_install = true,
+            ensure_installed = {},
+            ignore_install = {},
+            sync_install = true,
+            modules = {},
             highlight = {
                 enable = true,
                 disable = { "latex" },
