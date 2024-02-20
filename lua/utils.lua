@@ -40,7 +40,6 @@ function M.on_attach(client, bufnr)
     cnmap("textDocument/typeDefinition", "<leader>td", vim.lsp.buf.type_definition, "[T]ype [D]efinition")
     cnmap("textDocument/rename", "<leader>rn", vim.lsp.buf.rename, "[R]e[N]ame")
     cnmap("textDocument/codeAction", "<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
-    -- cnmap("textDocument/signatureHelp", "<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 
     if supp("textDocument/inlayHint") then
         vim.lsp.inlay_hint.enable(bufnr, true)
