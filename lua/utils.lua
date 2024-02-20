@@ -1,8 +1,6 @@
 local M = {}
 
 function M.on_attach(client, bufnr)
-    vim.inspect("Attaching")
-    -- Normal map
     local nmap = function(keys, func, desc)
         if desc then
             desc = "LSP: " .. desc
@@ -24,7 +22,6 @@ function M.on_attach(client, bufnr)
     end
 
     if supp("textDocument/formatting") then
-        vim.notify("Enabling formatting")
         vim.api.nvim_create_augroup("none_ls_group", { clear = true })
         vim.api.nvim_create_autocmd("BufWritePre", {
             group = "none_ls_group",

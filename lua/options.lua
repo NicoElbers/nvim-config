@@ -33,3 +33,7 @@ vim.opt.smartcase = true
 vim.opt.updatetime = 50
 vim.opt.timeout = true
 vim.opt.timeoutlen = 300
+
+-- Cool colors
+vim.opt.cursorline = true
+vim.opt.colorcolumn = { 80, 81 }
