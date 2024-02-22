@@ -22,7 +22,6 @@ function M.on_attach(client, bufnr)
 	end
 
 	if supp("textDocument/formatting") then
-		vim.notify("Formatting")
 		nmap("<leader>f", function()
 			require("conform").format({ bufnr = bufnr })
 		end, "[F]ormat")
