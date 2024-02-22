@@ -43,10 +43,10 @@ vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
 
 -- Set whitespace characters
 vim.opt.listchars:append({
-	multispace = "·",
-	lead = "·",
-	trail = "·",
-	nbsp = "·",
-	eol = "↵",
+    multispace = "·",
+    lead = "·",
+    trail = "·",
+    nbsp = "·",
+    eol = "↵",
 })
 vim.opt.list = true

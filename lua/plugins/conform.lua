@@ -19,9 +19,11 @@ return {
         },
         formatters_by_ft = {
             lua = { "stylua" },
-            markdown = { "prettierd" },
+            markdown = { "prettier" },
             rust = { "rustfmt" },
         },
-        formatters = {},
+        formatters = {
+            prettier = {},
+        },
     },
 }
