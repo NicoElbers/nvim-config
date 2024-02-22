@@ -11,23 +11,28 @@ return {
                 update_in_insert = true,
             },
             sources = {
-                -- Formatting
-                bi.formatting.stylua,
-                bi.formatting.prettierd.with({
-                    extra_args = function(params)
-                        return {
-                            "--config-precedence",
-                            "--tab-width",
-                            "4",
-                            "--print-width",
-                            "80",
-                        }
-                    end,
-                }),
-                bi.formatting.black,
-                bi.formatting.isort,
+                -- -- Formatting
+                -- bi.formatting.stylua,
+                -- bi.formatting.prettier.with({
+                --     extra_filetypes = { "javascript", "typescript", "css", "html", "json", "jsonc", "yaml", "markdown" },
+                --     extra_args = function(params)
+                --         return {
+                --             "--config-precedence",
+                --             "--tab-width",
+                --             "4",
+                --             "--print-width",
+                --             "80",
+                --         }
+                --     end,
+                -- }),
+                -- bi.formatting.black,
+                -- bi.formatting.isort,
 
                 -- Diagnostics
+                bi.diagnostics.checkstyle.with({
+                    extra_args = { "-c", "/checkstyle.xml" },
+                }),
+
                 bi.diagnostics.eslint_d.with({
                     extra_args = function(params)
                         local file_types = { "js", "cjs", "yaml", "yml", "json" }

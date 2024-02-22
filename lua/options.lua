@@ -37,3 +37,5 @@ vim.opt.timeoutlen = 300
 -- Cool colors
 vim.opt.cursorline = true
 vim.opt.colorcolumn = { 80, 81 }
+
+vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
