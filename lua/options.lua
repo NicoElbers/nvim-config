@@ -38,4 +38,15 @@ vim.opt.timeoutlen = 300
 vim.opt.cursorline = true
 vim.opt.colorcolumn = { 80, 81 }
 
+-- Required for formatting I think, can't be fucked to check
 vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+
+-- Set whitespace characters
+vim.opt.listchars:append({
+	multispace = "·",
+	lead = "·",
+	trail = "·",
+	nbsp = "·",
+	eol = "↵",
+})
+vim.opt.list = true
