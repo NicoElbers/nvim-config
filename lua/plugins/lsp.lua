@@ -2,7 +2,8 @@ local utils = require("utils")
 
 local servers = {
 	lua_ls = {},
-	-- NOTE: rust analyzer is done through the rust tools plugin
+	-- NOTE: rust analyzer is done through the rustaceanvim plugin
+	--
 	-- rust_analyzer = {},
 	tsserver = {},
 	html = {},
