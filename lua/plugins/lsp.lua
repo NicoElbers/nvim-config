@@ -46,26 +46,6 @@ return {
             "williamboman/mason-lspconfig.nvim",
         },
         config = function()
-            -- UI thingies
-            local border = {
-                { "╭", "FloatBorder" },
-                { "─", "FloatBorder" },
-                { "╮", "FloatBorder" },
-                { "│", "FloatBorder" },
-                { "╯", "FloatBorder" },
-                { "─", "FloatBorder" },
-                { "╰", "FloatBorder" },
-                { "│", "FloatBorder" },
-            }
-            local orig_floating_preview = vim.lsp.util.open_floating_preview
-
-            ---@diagnostic disable-next-line: duplicate-set-field
-            function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
-                opts = opts or {}
-                opts.border = opts.border or border
-                return orig_floating_preview(contents, syntax, opts, ...)
-            end
-
             require("neodev").setup()
 
             local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -105,25 +85,6 @@ return {
         version = "^4",
         ft = { "rust" },
         config = function()
-            local border = {
-                { "╭", "FloatBorder" },
-                { "─", "FloatBorder" },
-                { "╮", "FloatBorder" },
-                { "│", "FloatBorder" },
-                { "╯", "FloatBorder" },
-                { "─", "FloatBorder" },
-                { "╰", "FloatBorder" },
-                { "│", "FloatBorder" },
-            }
-            local orig_floating_preview = vim.lsp.util.open_floating_preview
-
-            ---@diagnostic disable-next-line: duplicate-set-field
-            function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
-                opts = opts or {}
-                opts.border = opts.border or border
-                return orig_floating_preview(contents, syntax, opts, ...)
-            end
-
             vim.g.rustaceanvim = {
                 server = {
                     on_attach = utils.on_attach,
