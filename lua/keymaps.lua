@@ -18,7 +18,7 @@ vim.keymap.set("n", "<leader>o", 'o<Esc>"_D')
 vim.keymap.set("n", "<leader>O", 'O<Esc>"_D')
 
 -- Better deleting
--- vim.keymap.set("n", "<leader>d", '"_D')
+vim.keymap.set("n", "<leader>d", '0"_D')
 
 -- Better leaving things
 vim.keymap.set("i", "<C-c>", "<Esc>")

@@ -30,7 +30,7 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
 -- Update time
-vim.opt.updatetime = 50
+vim.opt.updatetime = 100
 vim.opt.timeout = true
 vim.opt.timeoutlen = 300
 
