@@ -54,6 +54,11 @@ return {
 
             require("mason-lspconfig").setup_handlers({
                 function(server_name)
+                    -- Assure that I actually configure the table in servers
+                    if servers[server_name] == nil then
+                        return
+                    end
+
                     require("lspconfig")[server_name].setup({
                         capabilities = capabilities,
                         on_attach = utils.on_attach,
@@ -66,6 +71,7 @@ return {
     },
     {
         "mrcjkb/rustaceanvim",
+        enabled = true,
         version = "^4",
         ft = { "rust" },
         config = function()
@@ -79,7 +85,7 @@ return {
                                 loadOutDirsFromCheck = true,
                                 runBuildScripts = true,
                             },
-                            -- Add clippy lints for Rust.
+                            -- Add clippy lints for Rust
                             checkOnSave = {
                                 allFeatures = true,
                                 command = "clippy",
