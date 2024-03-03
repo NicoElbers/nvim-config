@@ -33,22 +33,6 @@ return {
                     extra_args = { "-c", "/checkstyle.xml" },
                 }),
 
-                bi.diagnostics.eslint_d.with({
-                    extra_args = function(params)
-                        local file_types = { "js", "cjs", "yaml", "yml", "json" }
-                        for _, file_type in pairs(file_types) do
-                            local f = io.open(params.root .. "/.eslintrc." .. file_type)
-                            if f ~= nil then
-                                io.close(f)
-                                return {} -- If a config exists, do nothing
-                            end
-                        end
-                        return {
-                            "--config",
-                            vim.fs.normalize("~/.config/default_configs/.eslintrc.js"),
-                        }
-                    end,
-                }),
                 bi.diagnostics.ltrs.with({
                     diagnostic_config = {
                         underline = true,
@@ -57,10 +41,6 @@ return {
                         update_in_insert = true,
                     },
                 }),
-
-                -- Code actions
-                bi.code_actions.eslint_d,
-                bi.code_actions.ltrs,
             },
             on_attach = utils.on_attach,
         })
