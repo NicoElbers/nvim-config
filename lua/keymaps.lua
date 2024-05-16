@@ -23,6 +23,11 @@ vim.keymap.set("n", "<leader>d", '0"_D')
 -- Better leaving things
 vim.keymap.set("i", "<C-c>", "<Esc>")
 
+-- Quick fix shit
+
+vim.keymap.set("n", "<C-j>", "<cmd>cnext<CR>")
+vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>")
+
 vim.api.nvim_create_user_command("E", function()
     vim.cmd.wa()
     vim.cmd.qa()
