@@ -26,6 +26,8 @@ return {
             vim.keymap.set("n", "<leader>ps", builtin.live_grep)
             vim.keymap.set("n", "<leader>?", builtin.oldfiles)
             vim.keymap.set("n", "<leader>u", "<cmd>Telescope undo<cr>")
+
+            vim.keymap.set("n", "gr", builtin.lsp_references)
         end,
     },
 }
