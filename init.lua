@@ -1,3 +1,6 @@
+---@diagnostic disable-next-line: duplicate-set-field
+vim.deprecate = function() end
+
 -- Make sure lazy exists
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
