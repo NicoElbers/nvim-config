@@ -59,7 +59,7 @@ function M.on_attach(client, bufnr)
     cnmap("textDocument/codeAction", "<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 
     if supp("textDocument/inlayHint") then
-        vim.lsp.inlay_hint.enable(bufnr, true)
+        vim.lsp.inlay_hint.enable(true)
     end
 end
 
