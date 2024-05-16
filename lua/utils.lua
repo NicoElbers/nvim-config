@@ -44,12 +44,6 @@ function M.on_attach(client, bufnr)
         end
     end
 
-    -- if supp("textDocument/formatting") then
-    -- 	nmap("<leader>f", function()
-    -- 		require("conform").format({ bufnr = bufnr })
-    -- 	end, "[F]ormat")
-    -- end
-
     cnmap("textDocument/hover", "K", vim.lsp.buf.hover, "Hover Docs")
     cnmap("textDocument/definition", "gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
     cnmap("textDocument/declaration", "gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
