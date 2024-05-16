@@ -5,7 +5,7 @@ return {
         local config = require("nvim-treesitter.configs")
         config.setup({
             auto_install = true,
-            ensure_installed = {},
+            ensure_installed = { "lua", "rust", "c", "zig" },
             ignore_install = {},
             sync_install = true,
             modules = {},
