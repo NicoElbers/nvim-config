@@ -3,25 +3,30 @@ return {
     dependencies = {
         "nvim-tree/nvim-web-devicons",
     },
-    config = function()
-        require("trouble").setup()
+    opts = {
+        icons = true,
+    },
+    config = function(opts)
+        require("trouble").setup(opts)
     end,
     keys = {
         {
-            "<leader>tt",
+            "<leader>td",
             function()
                 require("trouble").toggle()
             end,
         },
         {
-            "]d",
+            "<C-j>",
             function()
+                require("trouble").open("workspace_diagnostics")
                 require("trouble").next({ skip_groups = true, jump = true })
             end,
         },
         {
-            "[d",
+            "<C-k>",
             function()
+                require("trouble").open("workspace_diagnostics")
                 require("trouble").previous({ skip_groups = true, jump = true })
             end,
         },

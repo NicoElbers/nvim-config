@@ -48,7 +48,7 @@ function M.on_attach(client, bufnr)
     cnmap("textDocument/definition", "gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
     cnmap("textDocument/declaration", "gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
     cnmap("textDocument/implementation", "gi", vim.lsp.buf.implementation, "[G]oto [I]mplementation")
-    cnmap("textDocument/typeDefinition", "<leader>td", vim.lsp.buf.type_definition, "[T]ype [D]efinition")
+    cnmap("textDocument/typeDefinition", "<leader>de", vim.lsp.buf.type_definition, "[T]ype [D]efinition")
     cnmap("textDocument/rename", "<leader>rn", vim.lsp.buf.rename, "[R]e[N]ame")
     cnmap("textDocument/codeAction", "<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 
