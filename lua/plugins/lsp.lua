@@ -52,6 +52,47 @@ return {
             capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
             capabilities.document_formatting = false
 
+            require("lspconfig").rust_analyzer.setup({
+                capabilities = capabilities,
+                on_attach = utils.on_attach,
+                filetypes = { "rust " },
+                settings = {
+                    ["rust_analyzer"] = {
+                        cargo = {
+                            allFeatures = true,
+                            loadOutDirsFromCheck = true,
+                            runBuildScripts = true,
+                        },
+                        -- Add clippy lints for Rust
+                        checkOnSave = {
+                            allFeatures = true,
+                            allTargets = true,
+                            command = "clippy",
+                            extraArgs = {
+                                "--",
+                                "--no-deps",
+                                "-Dclippy::pedantic",
+                                "-Dclippy::nursery",
+                                "-Dclippy::unwrap_used",
+                                "-Dclippy::enum_glob_use",
+                                "-Wclippy::complexity",
+                                "-Wclippy::perf",
+                                -- Removing annoying lints I'm never doing
+                                "-Aclippy::suboptimal_flops",
+                            },
+                        },
+                        procMacro = {
+                            enable = true,
+                            ignored = {
+                                ["async-trait"] = { "async_trait" },
+                                ["napi-derive"] = { "napi" },
+                                ["async-recursion"] = { "async_recursion" },
+                            },
+                        },
+                    },
+                },
+            })
+
             require("mason-lspconfig").setup_handlers({
                 function(server_name)
                     -- Assure that I actually configure the table in servers
@@ -67,53 +108,6 @@ return {
                     })
                 end,
             })
-        end,
-    },
-    {
-        "mrcjkb/rustaceanvim",
-        enabled = true,
-        version = "^4",
-        ft = { "rust" },
-        config = function()
-            vim.g.rustaceanvim = {
-                server = {
-                    on_attach = utils.on_attach,
-                    default_settings = {
-                        ["rust_analyzer"] = {
-                            cargo = {
-                                allFeatures = true,
-                                loadOutDirsFromCheck = true,
-                                runBuildScripts = true,
-                            },
-                            -- Add clippy lints for Rust
-                            checkOnSave = {
-                                allFeatures = true,
-                                command = "clippy",
-                                extraArgs = {
-                                    "--",
-                                    "--no-deps",
-                                    "-Dclippy::pedantic",
-                                    "-Dclippy::nursery",
-                                    "-Dclippy::unwrap_used",
-                                    "-Dclippy::enum_glob_use",
-                                    "-Wclippy::complexity",
-                                    "-Wclippy::perf",
-                                    -- Removing annoying lints I'm never doing
-                                    "-Aclippy::suboptimal_flops",
-                                },
-                            },
-                            procMacro = {
-                                enable = true,
-                                ignored = {
-                                    ["async-trait"] = { "async_trait" },
-                                    ["napi-derive"] = { "napi" },
-                                    ["async-recursion"] = { "async_recursion" },
-                                },
-                            },
-                        },
-                    },
-                },
-            }
         end,
     },
 }
