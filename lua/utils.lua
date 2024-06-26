@@ -24,8 +24,6 @@ local M = {}
 function M.on_attach(client, bufnr)
     update_border()
 
-    vim.notify("Loading LSP")
-
     local nmap = function(keys, func, desc)
         if desc then
             desc = "LSP: " .. desc

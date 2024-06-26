@@ -2,7 +2,7 @@ local utils = require("utils")
 
 local servers = {
     lua_ls = {},
-    rust_analyzer = {},
+    rust_analyzer = nil,
     tsserver = {},
     html = {},
     cssls = {},
@@ -10,54 +10,13 @@ local servers = {
     tailwindcss = {},
     eslint = {},
     clangd = {},
-    zls = {},
+    zls = nil,
+    -- zls = {
+    --     warn_style = true,
+    -- },
     marksman = {},
     pyright = {},
 }
-
-local function setup_rust(capabilities)
-    vim.notify("Setting up rust")
-    require("lspconfig").rust_analyzer.setup({
-        capabilities = capabilities,
-        on_attach = utils.on_attach,
-        filetypes = { "rust " },
-        settings = {
-            ["rust_analyzer"] = {
-                cargo = {
-                    allFeatures = true,
-                    loadOutDirsFromCheck = true,
-                    runBuildScripts = true,
-                },
-                -- Add clippy lints for Rust
-                checkOnSave = {
-                    allFeatures = true,
-                    allTargets = true,
-                    command = "clippy",
-                    extraArgs = {
-                        "--",
-                        "--no-deps",
-                        "-Dclippy::pedantic",
-                        "-Dclippy::nursery",
-                        "-Dclippy::unwrap_used",
-                        "-Dclippy::enum_glob_use",
-                        "-Wclippy::complexity",
-                        "-Wclippy::perf",
-                        -- Removing annoying lints I'm never doing
-                        "-Aclippy::suboptimal_flops",
-                    },
-                },
-                procMacro = {
-                    enable = true,
-                    ignored = {
-                        ["async-trait"] = { "async_trait" },
-                        ["napi-derive"] = { "napi" },
-                        ["async-recursion"] = { "async_recursion" },
-                    },
-                },
-            },
-        },
-    })
-end
 
 return {
     {
@@ -98,8 +57,6 @@ return {
                     -- Assure that I actually configure the table in servers
                     if servers[server_name] == nil then
                         return
-                    elseif servers[server_name] == "rust_analyzer" then
-                        setup_rust(capabilities)
                     end
 
                     require("lspconfig")[server_name].setup({
@@ -110,6 +67,65 @@ return {
                     })
                 end,
             })
+
+            require("lspconfig").zls.setup({
+                capabilities = capabilities,
+                on_attach = utils.on_attach,
+                settings = {
+                    warn_style = true,
+                },
+            })
+        end,
+    },
+    {
+        "mrcjkb/rustaceanvim",
+        version = "^4", -- Recommended
+        lazy = false, -- This plugin is already lazy
+        init = function()
+            vim.g.rustaceanvim = {
+                tools = {
+                    enable_clippy = true,
+                },
+                server = {
+                    on_attach = utils.on_attach,
+                    default_settings = {
+                        ["rust-analyzer"] = {
+                            cargo = {
+                                allFeatures = true,
+                                features = "all",
+                                loadOutDirsFromCheck = true,
+                                runBuildScripts = true,
+                            },
+                            -- Add clippy lints for Rust
+                            checkOnSave = {
+                                allFeatures = true,
+                                allTargets = true,
+                                command = "clippy",
+                                extraArgs = {
+                                    "--",
+                                    "--no-deps",
+                                    "-Dclippy::pedantic",
+                                    "-Dclippy::nursery",
+                                    "-Dclippy::unwrap_used",
+                                    "-Dclippy::enum_glob_use",
+                                    "-Wclippy::complexity",
+                                    "-Wclippy::perf",
+                                    -- Shitty lints imo
+                                    "-Aclippy::module_name_repetitions",
+                                },
+                            },
+                            procMacro = {
+                                enable = true,
+                                ignored = {
+                                    ["async-trait"] = { "async_trait" },
+                                    ["napi-derive"] = { "napi" },
+                                    ["async-recursion"] = { "async_recursion" },
+                                },
+                            },
+                        },
+                    },
+                },
+            }
         end,
     },
 }
