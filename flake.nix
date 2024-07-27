@@ -4,13 +4,18 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    neovim-nightly-overlay = {
+      url = "github:nix-community/neovim-nightly-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nv = {
       url = "github:NicoElbers/nv";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { nixpkgs, nv, ... }: 
+  outputs = { nixpkgs, nv, ... }@inputs: 
   let
     # Copied from flake utils
     eachSystem = with builtins; systems: f:
@@ -266,7 +271,7 @@
         configDirName = "nvim";
 
         # Any other neovim package you would like to use, for example nightly
-        neovim-unwrapped = null;
+        neovim-unwrapped = inputs.neovim-nightly-overlay.packages.${pkgs.system}.neovim;
 
         # Whether to add custom subsitution made in the original repo, makes for
         # a better out of the box experience 
