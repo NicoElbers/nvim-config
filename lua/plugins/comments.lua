@@ -1,6 +1,16 @@
 return {
     "numToStr/Comment.nvim",
-    event = { "BufRead", "BufWrite", "BufNewFile" },
+    -- event = { "BufReadPost", "BufNewFile", "BufWritePre" },
+    keys = {
+        { "gcc" },
+        { "gbc" },
+        { "gcO" },
+        { "gco" },
+        { "gcA" },
+        { "gc", mode = "v" },
+        { "gb", mode = "v" },
+    },
+
     opts = {
         ignore = "^$",
     },

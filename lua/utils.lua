@@ -21,6 +21,23 @@ end
 
 local M = {}
 
+M.LazyFile = { "BufReadPost", "BufNewFile", "BufWritePre" }
+M.isNix = vim.g.nixos ~= nil
+M.isNotNix = vim.g.nixos == nil
+
+function M.set(nonNix, nix)
+    if M.isNix then
+        return nix
+    else
+        return nonNix
+    end
+end
+
+function M.is_loaded(name)
+    local Config = require("lazy.core.config")
+    return Config.plugins[name] and Config.plugins[name]._.loaded
+end
+
 function M.on_attach(client, bufnr)
     update_border()
 

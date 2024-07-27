@@ -39,7 +39,7 @@ vim.opt.cursorline = true
 vim.opt.colorcolumn = { 80, 81 }
 
 -- Required for formatting I think, can't be fucked to check
-vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+-- vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
 
 -- Set whitespace characters
 vim.opt.listchars:append({
@@ -50,3 +50,6 @@ vim.opt.listchars:append({
     eol = "↵",
 })
 vim.opt.list = true
+
+-- local colorschemeName = "catppuccin-mocha"
+-- vim.cmd.colorscheme(colorschemeName)

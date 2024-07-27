@@ -1,75 +1,102 @@
 local utils = require("utils")
 
-local servers = {
-    lua_ls = {},
-    rust_analyzer = nil,
-    tsserver = {},
-    html = {},
-    cssls = {},
-    emmet_ls = {},
-    tailwindcss = {},
-    eslint = {},
-    clangd = {},
-    zls = nil,
-    -- zls = {
-    --     warn_style = true,
-    -- },
-    marksman = {},
-    pyright = {},
-}
-
 return {
-    {
-        "j-hui/fidget.nvim",
-        event = { "BufRead", "BufWrite", "BufNewFile" },
-        tag = "legacy",
-        opts = {},
-    },
-    {
-        "williamboman/mason.nvim",
-        config = function()
-            require("mason").setup()
-        end,
-    },
-    {
-        "williamboman/mason-lspconfig.nvim",
-        config = function()
-            require("mason-lspconfig").setup({
-                ensure_installed = vim.tbl_keys(servers),
-            })
-        end,
-    },
     {
         "neovim/nvim-lspconfig",
         dependencies = {
-            "folke/neodev.nvim",
-            "williamboman/mason-lspconfig.nvim",
+            {
+                "folke/neodev.nvim",
+                opts = {},
+            },
+            {
+                "j-hui/fidget.nvim",
+                opts = {},
+            },
+        },
+        ft = {
+            "c",
+            "c++",
+            "lua",
+            "markdown",
+            "nix",
+            "python",
+            "html",
+            "css",
+            "js",
+            "ts",
+            "zig",
         },
         config = function()
-            require("neodev").setup()
-
             local capabilities = vim.lsp.protocol.make_client_capabilities()
             capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
             capabilities.document_formatting = false
 
-            require("mason-lspconfig").setup_handlers({
-                function(server_name)
-                    -- Assure that I actually configure the table in servers
-                    if servers[server_name] == nil then
-                        return
-                    end
+            local lspconfig = require("lspconfig")
 
-                    require("lspconfig")[server_name].setup({
-                        capabilities = capabilities,
-                        on_attach = utils.on_attach,
-                        settings = servers[server_name],
-                        filetypes = (servers[server_name] or {}).filetypes,
-                    })
-                end,
+            -- c/ c++
+            lspconfig.clangd.setup({
+                on_attach = utils.on_attach,
+                cmd = { "clangd" },
+                capabilities = capabilities,
             })
 
-            require("lspconfig").zls.setup({
+            -- Lua
+            lspconfig.lua_ls.setup({
+                on_attach = utils.on_attach,
+                cmd = { "lua-language-server" },
                 capabilities = capabilities,
+            })
+
+            -- Markdown
+            lspconfig.marksman.setup({
+                on_attach = utils.on_attach,
+                cmd = { "marksman" },
+                capabilities = capabilities,
+            })
+
+            -- Nix
+            lspconfig.nil_ls.setup({
+                on_attach = utils.on_attach,
+                cmd = { "nil" },
+                capabilities = capabilities,
+            })
+
+            -- Python
+            lspconfig.pyright.setup({
+                on_attach = utils.on_attach,
+                cmd = { "pyright-langserver" },
+                capabilities = capabilities,
+            })
+
+            -- Web
+            lspconfig.tsserver.setup({
+                on_attach = utils.on_attach,
+                capabilities = capabilities,
+            })
+
+            lspconfig.emmet_language_server.setup({
+                on_attach = utils.on_attach,
+                cmd = { "emmet-language-server" },
+                capabilities = capabilities,
+            })
+
+            lspconfig.tailwindcss.setup({
+                on_attach = utils.on_attach,
+                cmd = { "tailwindcss-language-server" },
+                capabilities = capabilities,
+            })
+
+            -- local cssls_capabilities = capabilities
+            -- cssls_capabilities.textDocument.completion.completionItem.snippetSupport = true
+            -- lspconfig.cssls.setup({
+            --     on_attach = utils.on_attach,
+            --     capabilities = cssls_capabilities,
+            -- })
+
+            -- Zig
+            lspconfig.zls.setup({
+                capabilities = capabilities,
+                cmd = { "zls" },
                 on_attach = utils.on_attach,
                 settings = {
                     warn_style = true,
@@ -77,10 +104,11 @@ return {
             })
         end,
     },
+    -- Rust
     {
         "mrcjkb/rustaceanvim",
         version = "^4", -- Recommended
-        lazy = false, -- This plugin is already lazy
+        ft = { "rust" },
         init = function()
             vim.g.rustaceanvim = {
                 tools = {

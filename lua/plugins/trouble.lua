@@ -1,12 +1,11 @@
 return {
     "folke/trouble.nvim",
     dependencies = {
-        "nvim-tree/nvim-web-devicons",
+        {
+            "nvim-tree/nvim-web-devicons",
+        },
     },
     opts = {
-        -- auto_close = true,
-        -- auto_open = true,
-        -- warn_no_results = false,
         keys = {
             ["<cr>"] = "jump_close",
             ["<space>"] = {

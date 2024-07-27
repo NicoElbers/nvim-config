@@ -1,5 +1,5 @@
 return {
     "lewis6991/gitsigns.nvim",
-    event = { "BufRead", "BufWrite", "BufNewFile" },
+    event = require("utils").LazyFile,
     opts = {},
 }
