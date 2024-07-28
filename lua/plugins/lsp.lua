@@ -15,7 +15,7 @@ return {
         },
         ft = {
             "c",
-            "c++",
+            "cpp",
             "lua",
             "markdown",
             "nix",
