@@ -43,6 +43,7 @@
           else []));
     
     forEachSystem = eachSystem nixpkgs.lib.platforms.all;
+
   in 
   let
     # Easily configure a custom name, this will affect the name of the standard
@@ -157,6 +158,7 @@
         vim-sleuth
         indent-blankline-nvim
         markdown-preview-nvim
+        markview-nvim
         image-nvim
         autoclose-nvim
       ];
