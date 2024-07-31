@@ -22,7 +22,7 @@ end
 local M = {}
 
 M.LazyFile = { "BufReadPost", "BufNewFile", "BufWritePre" }
-M.isNix = vim.g.nixos ~= nil
+M.isNix = vim.g.nixos == true
 M.isNotNix = vim.g.nixos == nil
 
 function M.set(nonNix, nix)
