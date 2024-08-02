@@ -55,9 +55,9 @@ return {
             })
 
             -- Nix
-            lspconfig.nil_ls.setup({
+            lspconfig.nixd.setup({
                 on_attach = utils.on_attach,
-                cmd = { "nil" },
+                cmd = { "nixd" },
                 capabilities = capabilities,
             })
 

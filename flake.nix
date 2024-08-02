@@ -179,7 +179,7 @@
         emmet-language-server
         tailwindcss-language-server
         llvmPackages_18.clang-unwrapped
-        nil
+        nixd
         marksman
         pyright
 
