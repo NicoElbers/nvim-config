@@ -86,13 +86,6 @@ return {
                 capabilities = capabilities,
             })
 
-            -- local cssls_capabilities = capabilities
-            -- cssls_capabilities.textDocument.completion.completionItem.snippetSupport = true
-            -- lspconfig.cssls.setup({
-            --     on_attach = utils.on_attach,
-            --     capabilities = cssls_capabilities,
-            -- })
-
             -- Zig
             lspconfig.zls.setup({
                 capabilities = capabilities,
@@ -101,6 +94,13 @@ return {
                 settings = {
                     warn_style = true,
                 },
+            })
+
+            -- Go
+            lspconfig.gopls.setup({
+                on_attach = utils.on_attach,
+                cmd = { "gopls" },
+                capabilities = capabilities,
             })
         end,
     },

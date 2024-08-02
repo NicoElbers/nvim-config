@@ -182,6 +182,7 @@
         nixd
         marksman
         pyright
+        gopls
 
         # Zig sucks bc the LSP is only suported for master
         # inputs.zls.packages.${pkgs.system}.zls
