@@ -57,7 +57,7 @@
 
     configuration = { pkgs, ... }: 
     let
-      patchUtils = nv.patchUtils;
+      patchUtils = nv.patchUtils.${pkgs.system};
     in 
     {
       # The path to your neovim configuration.
@@ -242,7 +242,8 @@
 
       # Custom subsitutions you want the patcher to make. Custom subsitutions 
       # can be generated using
-      customSubs = with pkgs.vimPlugins patchUtils; [];
+      customSubs = with pkgs.vimPlugins patchUtils; []
+            ++ (patchUtils.stringSub "replace_me" "replaced");
             # For example, if you want to add a plugin with the short url
             # "cool/plugin" which is in nixpkgs as plugin-nvim you would do:
             # ++ (patchUtils.githubUrlSub "cool/plugin" plugin-nvim);
