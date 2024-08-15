@@ -232,7 +232,7 @@
       sharedLibraries = [ ];
 
       # Aliases for the patched config
-      aliases = [ "vim" "vi" ];
+      aliases = [ "vim" "vi" "nvim" ];
 
       # Extra lua configuration put at the top of your init.lua
       # This cannot replace your init.lua, if none exists in your configuration
