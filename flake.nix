@@ -100,6 +100,9 @@
 
         nvim-dap # rustaceanvim dep
 
+        # hex
+        hex-nvim
+
         # treesitter
         nvim-treesitter-textobjects
         (nvim-treesitter.withPlugins (
