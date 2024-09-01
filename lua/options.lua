@@ -53,3 +53,23 @@ vim.opt.list = true
 
 -- local colorschemeName = "catppuccin-mocha"
 -- vim.cmd.colorscheme(colorschemeName)
+
+-- Change lsp inlay_hint_handler to only show hints on the current line
+-- https://github.com/neovim/neovim/issues/28261#issuecomment-2130338921
+local methods = vim.lsp.protocol.Methods
+local inlay_hint_handler = vim.lsp.handlers[methods["textDocument_inlayHint"]]
+vim.lsp.handlers[methods["textDocument_inlayHint"]] = function(err, result, ctx, config)
+    local client = vim.lsp.get_client_by_id(ctx.client_id)
+    if client then
+        local row, _ = unpack(vim.api.nvim_win_get_cursor(0))
+        if result == nil then
+            return
+        end
+        result = vim.iter(result)
+            :filter(function(hint)
+                return hint.position.line + 1 == row
+            end)
+            :totable()
+    end
+    inlay_hint_handler(err, result, ctx, config)
+end

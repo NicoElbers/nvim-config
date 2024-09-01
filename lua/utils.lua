@@ -69,9 +69,19 @@ function M.on_attach(client, bufnr)
     cnmap("textDocument/rename", "<leader>rn", vim.lsp.buf.rename, "[R]e[N]ame")
     cnmap("textDocument/codeAction", "<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 
-    if supp("textDocument/inlayHint") then
-        vim.lsp.inlay_hint.enable(true)
-    end
+    -- if supp("textDocument/inlayHint") then
+    --     vim.lsp.inlay_hint.enable(true)
+    -- end
+
+    local inlay_hints_group = vim.api.nvim_create_augroup("LSP_inlayHints", { clear = false })
+    vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+        group = inlay_hints_group,
+        desc = "Update inlay hints on line change",
+        buffer = bufnr,
+        callback = function()
+            vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+        end,
+    })
 end
 
 return M
