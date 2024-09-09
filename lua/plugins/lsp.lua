@@ -25,6 +25,8 @@ return {
             "js",
             "ts",
             "zig",
+            "vhd",
+            "vhdl",
         },
         config = function()
             local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -100,6 +102,13 @@ return {
             lspconfig.gopls.setup({
                 on_attach = utils.on_attach,
                 cmd = { "gopls" },
+                capabilities = capabilities,
+            })
+
+            -- VHDL
+            lspconfig.vhdl_ls.setup({
+                on_attach = utils.on_attach,
+                cmd = { "vhdl_ls" },
                 capabilities = capabilities,
             })
         end,
