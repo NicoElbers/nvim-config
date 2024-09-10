@@ -1,6 +1,7 @@
-return {
-    enabled = false,
-    "echasnovski/mini.files",
-    version = false,
-    opts = {},
-}
+return {}
+-- return {
+--     enabled = false,
+--     "echasnovski/mini.files",
+--     version = false,
+--     opts = {},
+-- }
