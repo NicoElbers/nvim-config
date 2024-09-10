@@ -152,7 +152,6 @@
         nui-nvim
         neo-tree-nvim
         undotree
-        oil-nvim
 
         # Color scheme
         onedark-nvim
