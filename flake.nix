@@ -9,13 +9,13 @@
       # inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nv = {
-      url = "github:NicoElbers/nv";
+    nixPatch = {
+      url = "github:NicoElbers/nixPatch-nvim";
       # inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { nixpkgs, nv, ... }@inputs: 
+  outputs = { nixpkgs, nixPatch, ... }@inputs: 
   let
     # Copied from flake utils
     eachSystem = with builtins; systems: f:
@@ -48,7 +48,7 @@
   let
     # Easily configure a custom name, this will affect the name of the standard
     # executable, you can add as many aliases as you'd like in the configuration.
-    name = "nv";
+    name = "nvimp";
 
     # Any custom package config you would like to do.
     extra_pkg_config = {
@@ -57,7 +57,7 @@
 
     configuration = { pkgs, ... }: 
     let
-      patchUtils = nv.patchUtils.${pkgs.system};
+      patchUtils = nixPatch.patchUtils.${pkgs.system};
     in 
     {
       # The path to your neovim configuration.
@@ -237,7 +237,7 @@
       sharedLibraries = [ ];
 
       # Aliases for the patched config
-      aliases = [ "vim" "vi" "nvim" ];
+      aliases = [ "nv" "vim" "vi" "nvim" ];
 
       # Extra lua configuration put at the top of your init.lua
       # This cannot replace your init.lua, if none exists in your configuration
@@ -293,6 +293,6 @@
   in 
   forEachSystem (system: {
     packages.default = 
-      nv.configWrapper.${system} { inherit configuration extra_pkg_config name; };
+      nixPatch.configWrapper.${system} { inherit configuration extra_pkg_config name; };
   });
 }
