@@ -52,8 +52,11 @@ return {
                     enable = true,
                     disable = { "latex" },
                 },
-                indent = { enable = true },
+                indent = { enable = false },
                 textobjects = {
+                    lsp_interop = {
+                        enable = true,
+                    },
                     select = {
                         enable = true,
                         lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
