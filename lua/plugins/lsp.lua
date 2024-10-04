@@ -30,6 +30,22 @@ return {
             local lspconfig = require("lspconfig")
 
             local function setup_autocmd(name, lang, opts)
+                local ft = vim.bo.filetype
+
+                if type(lang) == "string" then
+                    if lang == ft then
+                        lspconfig[name].setup(opts)
+                        return
+                    end
+                elseif type(lang) == "table" then
+                    for _, v in ipairs(lang) do
+                        if v == ft then
+                            lspconfig[name].setup(opts)
+                            return
+                        end
+                    end
+                end
+
                 vim.api.nvim_create_autocmd("FileType", {
                     pattern = lang,
                     callback = function()
@@ -39,7 +55,6 @@ return {
             end
 
             setup_autocmd("clangd", { "c", "cpp" }, {
-
                 on_attach = utils.on_attach,
                 cmd = { "clangd" },
                 capabilities = capabilities,
