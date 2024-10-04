@@ -111,11 +111,22 @@
             bash
             bibtex
             c
+            comment
             cpp
             css
+            diff
+            git_config
+            git_rebase
+            gitcommit
+            gitignore
+            gpg
             html
             http
             javascript
+            jq
+            json
+            json5
+            llvm
             lua
             make
             markdown
@@ -123,25 +134,13 @@
             nix
             python
             rust
+            ssh_config
             toml
             typescript
             vim
             vimdoc
             xml
             yaml
-
-            comment
-            diff
-            git_config
-            git_rebase
-            gitcommit
-            gitignore
-            gpg
-            jq
-            json
-            json5
-            llvm
-            ssh_config
           ]
         ))
 
