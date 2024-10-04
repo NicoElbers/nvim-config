@@ -29,61 +29,113 @@ return {
 
             local lspconfig = require("lspconfig")
 
-            -- c/ c++
-            lspconfig.clangd.setup({
+            local function setup_autocmd(name, lang, opts)
+                vim.api.nvim_create_autocmd("FileType", {
+                    pattern = lang,
+                    callback = function()
+                        lspconfig[name].setup(opts)
+                    end,
+                })
+            end
+
+            setup_autocmd("clangd", { "c", "cpp" }, {
+
                 on_attach = utils.on_attach,
                 cmd = { "clangd" },
                 capabilities = capabilities,
             })
 
+            -- c/ c++
+            -- lspconfig.clangd.setup({
+            --     on_attach = utils.on_attach,
+            --     cmd = { "clangd" },
+            --     capabilities = capabilities,
+            -- })
+
             -- Lua
-            lspconfig.lua_ls.setup({
+            setup_autocmd("lua_ls", "lua", {
                 on_attach = utils.on_attach,
                 cmd = { "lua-language-server" },
                 capabilities = capabilities,
             })
 
+            -- lspconfig.lua_ls.setup({
+            --     on_attach = utils.on_attach,
+            --     cmd = { "lua-language-server" },
+            --     capabilities = capabilities,
+            -- })
+            --
+
             -- Markdown
-            lspconfig.marksman.setup({
+            setup_autocmd("marksman", "markdown", {
                 on_attach = utils.on_attach,
                 cmd = { "marksman" },
                 capabilities = capabilities,
             })
+            -- lspconfig.marksman.setup({
+            --     on_attach = utils.on_attach,
+            --     cmd = { "marksman" },
+            --     capabilities = capabilities,
+            -- })
 
             -- Nix
-            lspconfig.nixd.setup({
+            setup_autocmd("nixd", "nix", {
                 on_attach = utils.on_attach,
                 cmd = { "nixd" },
                 capabilities = capabilities,
             })
+            -- lspconfig.nixd.setup({
+            --     on_attach = utils.on_attach,
+            --     cmd = { "nixd" },
+            --     capabilities = capabilities,
+            -- })
 
             -- Python
-            lspconfig.pyright.setup({
+            setup_autocmd("pyright", "python", {
                 on_attach = utils.on_attach,
                 cmd = { "pyright-langserver" },
                 capabilities = capabilities,
             })
+            -- lspconfig.pyright.setup({
+            --     on_attach = utils.on_attach,
+            --     cmd = { "pyright-langserver" },
+            --     capabilities = capabilities,
+            -- })
 
             -- Web
-            lspconfig.tsserver.setup({
+            setup_autocmd("tsserver", "ts", {
                 on_attach = utils.on_attach,
                 capabilities = capabilities,
             })
+            -- lspconfig.tsserver.setup({
+            --     on_attach = utils.on_attach,
+            --     capabilities = capabilities,
+            -- })
 
-            lspconfig.emmet_language_server.setup({
+            setup_autocmd("emmet_language_server", "html", {
                 on_attach = utils.on_attach,
                 cmd = { "emmet-language-server" },
                 capabilities = capabilities,
             })
+            -- lspconfig.emmet_language_server.setup({
+            --     on_attach = utils.on_attach,
+            --     cmd = { "emmet-language-server" },
+            --     capabilities = capabilities,
+            -- })
 
-            lspconfig.tailwindcss.setup({
+            setup_autocmd("tailwindcss", "css", {
                 on_attach = utils.on_attach,
                 cmd = { "tailwindcss-language-server" },
                 capabilities = capabilities,
             })
+            -- lspconfig.tailwindcss.setup({
+            --     on_attach = utils.on_attach,
+            --     cmd = { "tailwindcss-language-server" },
+            --     capabilities = capabilities,
+            -- })
 
             -- Zig
-            lspconfig.zls.setup({
+            setup_autocmd("zls", "zig", {
                 capabilities = capabilities,
                 cmd = { "zls" },
                 on_attach = utils.on_attach,
@@ -91,20 +143,38 @@ return {
                     warn_style = true,
                 },
             })
+            -- lspconfig.zls.setup({
+            --     capabilities = capabilities,
+            --     cmd = { "zls" },
+            --     on_attach = utils.on_attach,
+            --     settings = {
+            --         warn_style = true,
+            --     },
+            -- })
 
             -- Go
-            lspconfig.gopls.setup({
+            setup_autocmd("gopls", "go", {
                 on_attach = utils.on_attach,
                 cmd = { "gopls" },
                 capabilities = capabilities,
             })
+            -- lspconfig.gopls.setup({
+            --     on_attach = utils.on_attach,
+            --     cmd = { "gopls" },
+            --     capabilities = capabilities,
+            -- })
 
             -- VHDL
-            lspconfig.vhdl_ls.setup({
+            setup_autocmd("vhdl_ls", { "vhdl", "vdh" }, {
                 on_attach = utils.on_attach,
                 cmd = { "vhdl_ls" },
                 capabilities = capabilities,
             })
+            -- lspconfig.vhdl_ls.setup({
+            --     on_attach = utils.on_attach,
+            --     cmd = { "vhdl_ls" },
+            --     capabilities = capabilities,
+            -- })
         end,
     },
     -- Rust
