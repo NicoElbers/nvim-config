@@ -15,28 +15,39 @@ return {
             { "gr", "<cmd>Telescope lsp_references<cr>" },
         },
         config = function()
-            vim.defer_fn(function()
-                local conf = require("telescope")
-                conf.setup({
-                    extensions = {
-                        ["ui-select"] = {
-                            require("telescope.themes").get_dropdown({}),
-                        },
-                        undo = {},
+            local telescope = require("telescope")
+            local previewers = require("telescope.previewers")
+            local utils = require("telescope.previewers.utils")
+            local pfiletype = require("plenary.filetype")
+
+            local new_maker = function(filepath, bufnr, opts)
+                opts = opts or {}
+                if opts.use_ft_detect == nil then
+                    local ft = pfiletype.detect(filepath)
+                    opts.use_ft_detect = false
+
+                    if ft == "zig" then
+                        utils.regex_highlighter(bufnr, ft)
+                    end
+                end
+
+                previewers.buffer_previewer_maker(filepath, bufnr, opts)
+            end
+
+            telescope.setup({
+                defaults = {
+                    buffer_previewer_maker = new_maker,
+                },
+                extensions = {
+                    ["ui-select"] = {
+                        require("telescope.themes").get_dropdown({}),
                     },
-                })
+                    undo = {},
+                },
+            })
 
-                conf.load_extension("ui-select")
-                conf.load_extension("undo")
-
-                -- local builtin = require("telescope.builtin")
-                -- vim.keymap.set("n", "<leader>pf", builtin.find_files)
-                -- vim.keymap.set("n", "<leader>ps", builtin.live_grep)
-                -- vim.keymap.set("n", "<leader>?", builtin.oldfiles)
-                -- vim.keymap.set("n", "<leader>u", "<cmd>Telescope undo<cr>")
-
-                -- vim.keymap.set("n", "gr", builtin.lsp_references)
-            end, 0)
+            telescope.load_extension("ui-select")
+            telescope.load_extension("undo")
         end,
     },
 }
