@@ -13,9 +13,13 @@
       url = "github:NicoElbers/nixPatch-nvim";
       # inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    blink = {
+      url = "github:Saghen/blink.cmp";
+    };
   };
 
-  outputs = { nixpkgs, nixPatch, ... }@inputs: 
+  outputs = { nixpkgs, nixPatch, blink, ... }@inputs: 
   let
     # Copied from flake utils
     eachSystem = with builtins; systems: f:
@@ -55,9 +59,12 @@
         # allow_unfree = true;
     };
 
-    configuration = { pkgs, ... }: 
+    configuration = { pkgs, system, ... }: 
     let
+      lib = pkgs.lib;
       patchUtils = nixPatch.patchUtils.${pkgs.system};
+
+      blink-pkg = blink.packages.${system}.default;
     in 
     {
       # The path to your neovim configuration.
@@ -78,6 +85,9 @@
         cmp-nvim-lua
         cmp-nvim-lsp
         cmp-nvim-lsp-signature-help
+
+        # completions 2
+        blink-pkg
 
         # telescope
         plenary-nvim
@@ -250,6 +260,7 @@
       # Custom subsitutions you want the patcher to make. Custom subsitutions 
       # can be generated using
       customSubs = with pkgs.vimPlugins patchUtils; []
+            ++ (patchUtils.githubUrlSub "saghen/blink.cmp" blink-pkg)
             ++ (patchUtils.stringSub "replace_me" "replaced");
             # For example, if you want to add a plugin with the short url
             # "cool/plugin" which is in nixpkgs as plugin-nvim you would do:
