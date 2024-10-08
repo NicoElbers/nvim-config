@@ -24,7 +24,7 @@ return {
         },
         config = function()
             local capabilities = vim.lsp.protocol.make_client_capabilities()
-            capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+            -- capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
             capabilities.document_formatting = false
 
             local lspconfig = require("lspconfig")
@@ -118,7 +118,7 @@ return {
             -- })
 
             -- Web
-            setup_autocmd("tsserver", "ts", {
+            setup_autocmd("tsserver", { "ts", "js", "html" }, {
                 on_attach = utils.on_attach,
                 capabilities = capabilities,
             })
