@@ -203,6 +203,7 @@
 
         # Formatters
         prettierd
+        nodePackages_latest.prettier
         stylua
         black
         rustfmt
