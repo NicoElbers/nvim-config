@@ -127,6 +127,11 @@ return {
             --     capabilities = capabilities,
             -- })
 
+            setup_autocmd("html", "html", {
+                on_attach = utils.on_attach,
+                capabilities = capabilities,
+            })
+
             setup_autocmd("emmet_language_server", "html", {
                 on_attach = utils.on_attach,
                 cmd = { "emmet-language-server" },

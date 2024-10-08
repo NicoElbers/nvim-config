@@ -183,6 +183,7 @@
         # lsps
         lua-language-server
         nodePackages_latest.typescript-language-server
+        vscode-langservers-extracted
         emmet-language-server
         tailwindcss-language-server
         llvmPackages_18.clang-unwrapped
