@@ -19,8 +19,13 @@ return {
     opts = {
         keymap = {
             show = "<C-s>",
+            hide = "<C-e>",
 
-            accept = "<C-Space>",
+            show_documentation = "<C-s>",
+            hide_documentation = "<C-s>",
+
+            accept = "<C-space>",
+
             select_next = "<C-n>",
             select_prev = "<C-p>",
 
