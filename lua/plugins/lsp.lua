@@ -16,7 +16,7 @@ return {
             "python",
             "html",
             "css",
-            "js",
+            "javascript",
             "ts",
             "zig",
             "vhd",
@@ -118,7 +118,7 @@ return {
             -- })
 
             -- Web
-            setup_autocmd("tsserver", { "ts", "js", "html" }, {
+            setup_autocmd("tsserver", { "ts", "javascript", "html" }, {
                 on_attach = utils.on_attach,
                 capabilities = capabilities,
             })
