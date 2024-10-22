@@ -151,7 +151,7 @@
             json5
             llvm
             ssh_config
-            # zig
+            zig
           ]
         ))
 

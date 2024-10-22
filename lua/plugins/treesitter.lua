@@ -58,7 +58,11 @@ return {
                         enable = true,
                     },
                     select = {
-                        enable = true,
+                        -- Enabling this greatly increases the startup time on
+                        -- zig files
+                        -- https://github.com/nvim-treesitter/nvim-treesitter-textobjects/issues/461
+                        enable = false,
+
                         lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
                         keymaps = {
                             -- You can use the capture groups defined in textobjects.scm
