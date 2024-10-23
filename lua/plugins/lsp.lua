@@ -17,7 +17,7 @@ return {
             "html",
             "css",
             "javascript",
-            "ts",
+            "typescript",
             "zig",
             "vhd",
             "vhdl",
@@ -60,13 +60,6 @@ return {
                 capabilities = capabilities,
             })
 
-            -- c/ c++
-            -- lspconfig.clangd.setup({
-            --     on_attach = utils.on_attach,
-            --     cmd = { "clangd" },
-            --     capabilities = capabilities,
-            -- })
-
             -- Lua
             setup_autocmd("lua_ls", "lua", {
                 on_attach = utils.on_attach,
@@ -74,36 +67,18 @@ return {
                 capabilities = capabilities,
             })
 
-            -- lspconfig.lua_ls.setup({
-            --     on_attach = utils.on_attach,
-            --     cmd = { "lua-language-server" },
-            --     capabilities = capabilities,
-            -- })
-            --
-
             -- Markdown
             setup_autocmd("marksman", "markdown", {
                 on_attach = utils.on_attach,
                 cmd = { "marksman" },
                 capabilities = capabilities,
             })
-            -- lspconfig.marksman.setup({
-            --     on_attach = utils.on_attach,
-            --     cmd = { "marksman" },
-            --     capabilities = capabilities,
-            -- })
-
             -- Nix
             setup_autocmd("nixd", "nix", {
                 on_attach = utils.on_attach,
                 cmd = { "nixd" },
                 capabilities = capabilities,
             })
-            -- lspconfig.nixd.setup({
-            --     on_attach = utils.on_attach,
-            --     cmd = { "nixd" },
-            --     capabilities = capabilities,
-            -- })
 
             -- Python
             setup_autocmd("pyright", "python", {
@@ -111,21 +86,12 @@ return {
                 cmd = { "pyright-langserver" },
                 capabilities = capabilities,
             })
-            -- lspconfig.pyright.setup({
-            --     on_attach = utils.on_attach,
-            --     cmd = { "pyright-langserver" },
-            --     capabilities = capabilities,
-            -- })
 
             -- Web
-            setup_autocmd("tsserver", { "ts", "javascript", "html" }, {
+            setup_autocmd("tsserver", { "typescript", "javascript", "html" }, {
                 on_attach = utils.on_attach,
                 capabilities = capabilities,
             })
-            -- lspconfig.tsserver.setup({
-            --     on_attach = utils.on_attach,
-            --     capabilities = capabilities,
-            -- })
 
             setup_autocmd("html", "html", {
                 on_attach = utils.on_attach,
@@ -137,22 +103,12 @@ return {
                 cmd = { "emmet-language-server" },
                 capabilities = capabilities,
             })
-            -- lspconfig.emmet_language_server.setup({
-            --     on_attach = utils.on_attach,
-            --     cmd = { "emmet-language-server" },
-            --     capabilities = capabilities,
-            -- })
 
             setup_autocmd("tailwindcss", "css", {
                 on_attach = utils.on_attach,
                 cmd = { "tailwindcss-language-server" },
                 capabilities = capabilities,
             })
-            -- lspconfig.tailwindcss.setup({
-            --     on_attach = utils.on_attach,
-            --     cmd = { "tailwindcss-language-server" },
-            --     capabilities = capabilities,
-            -- })
 
             -- Zig
             setup_autocmd("zls", "zig", {
@@ -163,14 +119,6 @@ return {
                     warn_style = true,
                 },
             })
-            -- lspconfig.zls.setup({
-            --     capabilities = capabilities,
-            --     cmd = { "zls" },
-            --     on_attach = utils.on_attach,
-            --     settings = {
-            --         warn_style = true,
-            --     },
-            -- })
 
             -- Go
             setup_autocmd("gopls", "go", {
@@ -178,11 +126,6 @@ return {
                 cmd = { "gopls" },
                 capabilities = capabilities,
             })
-            -- lspconfig.gopls.setup({
-            --     on_attach = utils.on_attach,
-            --     cmd = { "gopls" },
-            --     capabilities = capabilities,
-            -- })
 
             -- VHDL
             setup_autocmd("vhdl_ls", { "vhdl", "vdh" }, {
@@ -190,11 +133,6 @@ return {
                 cmd = { "vhdl_ls" },
                 capabilities = capabilities,
             })
-            -- lspconfig.vhdl_ls.setup({
-            --     on_attach = utils.on_attach,
-            --     cmd = { "vhdl_ls" },
-            --     capabilities = capabilities,
-            -- })
         end,
     },
     -- Rust
