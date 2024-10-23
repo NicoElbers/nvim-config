@@ -190,7 +190,7 @@
         vscode-langservers-extracted
         emmet-language-server
         tailwindcss-language-server
-        llvmPackages_18.clang-unwrapped
+        clang-tools
         nixd
         marksman
         pyright
