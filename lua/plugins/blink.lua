@@ -15,19 +15,31 @@ return {
 
     opts = {
         keymap = {
-            show = "<C-s>",
-            hide = "<C-e>",
+            ["<C-s>"] = { "show", "show_documentation", "hide_documentation" },
+            ["<C-e>"] = { "hide" },
 
-            show_documentation = "<C-s>",
-            hide_documentation = "<C-s>",
+            ["<C-space>"] = { "select_and_accept" },
 
-            accept = "<C-space>",
-
-            select_next = "<C-n>",
-            select_prev = "<C-p>",
-
-            snippet_forward = "<C-n>",
-            snippet_backward = "<C-p>",
+            ["<C-n>"] = {
+                function(cmp)
+                    -- If we cannot select next and we're in a snippet,
+                    -- then go forward in that snippet
+                    if not cmp.select_next() and cmp.is_in_snippet() then
+                        cmp.snippet_forward()
+                    end
+                    return true
+                end,
+            },
+            ["<C-p>"] = {
+                function(cmp)
+                    -- If we cannot select prev item and we're in a snippet,
+                    -- then go backwards in that snippet
+                    if not cmp.select_prev() and cmp.is_in_snippet() then
+                        cmp.snippet_backward()
+                    end
+                    return true
+                end,
+            },
         },
 
         highlight = {
