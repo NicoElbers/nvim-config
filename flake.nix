@@ -6,10 +6,12 @@
 
     nixPatch = {
       url = "github:NicoElbers/nixPatch-nvim";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     blink = {
       url = "github:Saghen/blink.cmp";
+      # inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
