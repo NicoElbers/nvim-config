@@ -6,6 +6,7 @@ return {
         dependencies = {
             "folke/neodev.nvim",
             "j-hui/fidget.nvim",
+            "saghen/blink.cmp",
         },
         ft = {
             "c",
@@ -23,9 +24,7 @@ return {
             "vhdl",
         },
         config = function()
-            local capabilities = vim.lsp.protocol.make_client_capabilities()
-            -- capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
-            capabilities.document_formatting = false
+            local capabilities = require("blink.cmp").get_lsp_capabilities({}, true)
 
             local lspconfig = require("lspconfig")
 
