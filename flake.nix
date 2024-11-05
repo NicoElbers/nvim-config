@@ -4,9 +4,17 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    neovim-nightly-overlay = {
+      url = "github:nix-community/neovim-nightly-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixPatch = {
       url = "github:NicoElbers/nixPatch-nvim";
       inputs.nixpkgs.follows = "nixpkgs";
+
+      # We do this so that we ensure neovim nightly actually updates
+      inputs.neovim-nightly-overlay.follows = "neovim-nightly-overlay";
     };
 
     blink = {
