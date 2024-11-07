@@ -82,5 +82,11 @@ return {
                 border = utils.border,
             },
         },
+
+        fuzzy = {
+            prebuilt_binaries = {
+                download = utils.set(true, false),
+            },
+        },
     },
 }
