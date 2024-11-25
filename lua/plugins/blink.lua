@@ -71,7 +71,6 @@ return {
         windows = {
             autocomplete = {
                 border = utils.border,
-                draw = "reversed",
             },
             documentation = {
                 border = utils.border,
