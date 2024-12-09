@@ -24,7 +24,7 @@ return {
                 function(cmp)
                     -- If we cannot select next and we're in a snippet,
                     -- then go forward in that snippet
-                    if not cmp.select_next() and cmp.is_in_snippet() then
+                    if not cmp.select_next() and cmp.snippet_active() then
                         cmp.snippet_forward()
                     end
                     return true
@@ -34,7 +34,7 @@ return {
                 function(cmp)
                     -- If we cannot select prev item and we're in a snippet,
                     -- then go backwards in that snippet
-                    if not cmp.select_prev() and cmp.is_in_snippet() then
+                    if not cmp.select_prev() and cmp.snippet_active() then
                         cmp.snippet_backward()
                     end
                     return true
