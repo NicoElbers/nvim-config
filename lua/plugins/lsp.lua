@@ -82,7 +82,6 @@ return {
             -- Python
             setup_autocmd("pyright", "python", {
                 on_attach = utils.on_attach,
-                cmd = { "pyright-langserver" },
                 capabilities = capabilities,
             })
 
