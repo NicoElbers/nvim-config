@@ -161,6 +161,12 @@ return {
     {
         "mrcjkb/rustaceanvim",
         version = "^4", -- Recommended
+        dependencies = {
+            "folke/lazydev.nvim",
+            "j-hui/fidget.nvim",
+            "neovim/nvim-lspconfig",
+            "saghen/blink.cmp",
+        },
         ft = { "rust" },
         init = function()
             vim.g.rustaceanvim = {
