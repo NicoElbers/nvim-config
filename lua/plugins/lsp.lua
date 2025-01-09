@@ -4,7 +4,7 @@ return {
     {
         "neovim/nvim-lspconfig",
         dependencies = {
-            "folke/neodev.nvim",
+            "folke/lazydev.nvim",
             "j-hui/fidget.nvim",
             "saghen/blink.cmp",
         },

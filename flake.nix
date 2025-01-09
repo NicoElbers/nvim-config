@@ -107,7 +107,7 @@
         # lsp
         nvim-lspconfig
         fidget-nvim
-        neodev-nvim
+        lazydev-nvim
         rustaceanvim
         none-ls-nvim
 
