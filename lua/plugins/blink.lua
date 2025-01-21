@@ -95,6 +95,9 @@ return {
             menu = {
                 border = utils.border,
                 auto_show = true,
+                draw = {
+                    treesitter = {},
+                },
             },
             list = {},
             ghost_text = {},
