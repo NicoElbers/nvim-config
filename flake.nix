@@ -111,6 +111,7 @@
         lazydev-nvim
         rustaceanvim
         none-ls-nvim
+        nvim-metals
 
         nvim-dap # rustaceanvim dep
 
@@ -206,6 +207,12 @@
         pyright
         gopls
         vhdl-ls
+        metals
+
+        # For nvim-metals
+        coursier
+        zulu
+
 
         # Zig sucks bc the LSP is only suported for master
         # inputs.zls.packages.${pkgs.system}.zls
