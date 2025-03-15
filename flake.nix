@@ -17,9 +17,7 @@
     };
 
     blink = {
-      # url = "github:Saghen/blink.cmp";
-      url = "github:NicoElbers/blink.cmp";
-      # inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:Saghen/blink.cmp";
     };
   };
 
