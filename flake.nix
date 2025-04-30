@@ -206,6 +206,7 @@
         gopls
         vhdl-ls
         metals
+        superhtml
 
         # For nvim-metals
         coursier

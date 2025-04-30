@@ -111,19 +111,18 @@ return {
             })
 
             -- Web
-            setup_autocmd("tsserver", { "typescript", "javascript", "html" }, {
+            setup_autocmd("ts_ls", { "typescript", "javascript", "html" }, {
                 on_attach = utils.on_attach,
                 capabilities = capabilities,
             })
 
-            setup_autocmd("html", "html", {
+            setup_autocmd("superhtml", "html", {
                 on_attach = utils.on_attach,
                 capabilities = capabilities,
             })
 
             setup_autocmd("emmet_language_server", "html", {
                 on_attach = utils.on_attach,
-                cmd = { "emmet-language-server" },
                 capabilities = capabilities,
             })
 
