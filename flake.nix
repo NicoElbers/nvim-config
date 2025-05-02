@@ -67,6 +67,19 @@
       patchUtils = nixPatch.patchUtils.${pkgs.system};
 
       blink-pkg = blink.packages.${system}.default;
+
+      none-ls-nvim-custom = pkgs.vimUtils.buildVimPlugin {
+          pname = "none-ls.nvim";
+          version = "2025-05-02";
+          src = pkgs.fetchFromGitHub {
+            owner = "nvimtools";
+            repo = "none-ls.nvim";
+            rev = "a49f5a79cdb76e0dc1a98899c8598f4db014c5e7";
+            sha256 = "sha256-Yg3VpsXhdbz195BHfZ2P+nfn5yrgyXbxjoOPrLvSJnQ=";
+          };
+          meta.homepage = "https://github.com/nvimtools/none-ls.nvim/";
+          meta.hydraPlatforms = [ ];
+        };
     in 
     {
       # The path to your neovim configuration.
@@ -108,7 +121,7 @@
         fidget-nvim
         lazydev-nvim
         rustaceanvim
-        none-ls-nvim
+        # none-ls-nvim
         nvim-metals
 
         nvim-dap # rustaceanvim dep
@@ -271,6 +284,7 @@
       # can be generated using
       customSubs = with pkgs.vimPlugins patchUtils; []
             ++ (patchUtils.githubUrlSub "saghen/blink.cmp" blink-pkg)
+            ++ (patchUtils.githubUrlSub "nvimtools/none-ls.nvim" none-ls-nvim-custom)
             ++ (patchUtils.stringSub "replace_me" "replaced");
             # For example, if you want to add a plugin with the short url
             # "cool/plugin" which is in nixpkgs as plugin-nvim you would do:
