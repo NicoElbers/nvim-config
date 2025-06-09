@@ -191,7 +191,6 @@
         vim-sleuth
         indent-blankline-nvim
         markdown-preview-nvim
-        markview-nvim
         image-nvim
         autoclose-nvim
       ];
