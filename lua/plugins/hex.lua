@@ -1,5 +1,7 @@
-return {
-    "RaafatTurki/hex.nvim",
-    event = require("utils").LazyFile,
-    opts = {},
-}
+return {}
+
+-- return {
+--     "RaafatTurki/hex.nvim",
+--     event = require("utils").LazyFile,
+--     opts = {},
+-- }
