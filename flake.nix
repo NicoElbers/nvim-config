@@ -17,7 +17,7 @@
     };
 
     blink = {
-      url = "github:Saghen/blink.cmp";
+      url = "github:Saghen/blink.cmp/d23604026237e4d6bc33bb13eaf19ced0448c714";
     };
   };
 
