@@ -2,6 +2,7 @@
 require("options")
 require("keymaps")
 require("autocmds")
+local lsp = require("lsp_native")
 
 local utils = require("utils")
 
@@ -26,3 +27,6 @@ end)
 load_lazy()
 
 require("lazy").setup("plugins", { rocks = { enabled = false } })
+
+-- Must be done _after_ we setup lazy
+lsp.setup()
